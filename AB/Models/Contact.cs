@@ -16,12 +16,12 @@ namespace ContactBook.Models
         [StringLength(50)]
         [Required(AllowEmptyStrings = false, ErrorMessage = "First Name is required")]
         [Column("First Name")]
+        [Display(Name="First Name")]
 
         public string FirstName { get; set; }
 
         [StringLength(50)]
         [Column("Last Name")]
-
         public string LastName { get; set; }
 
         [Phone]
