@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ContactBook.Models.Contact>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<center>
+
+    <h1>Welcome @HttpContext.Current.User.Identity.Name</h1>
+
+</center>
+
+<h2>Phone Book</h2>
+
+<p>
+    @Html.ActionLink("+ Create New ", "Create")
+</p>
+
+@using (Html.BeginForm("index", "Contacts", FormMethod.Get))
+{
+    <div align="right">
+    <b>Search By:</b> @Html.RadioButton("searchBy", "FirstName", true) <text>FirstName</text>
+    @Html.RadioButton("searchBy", "LastName") <text>LastName</text>
+    <br />
+    @Html.TextBox("search")
+    <input type="submit" value="Search" />
+</div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CellNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th></th>
+    </tr>
+
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <th>Search Not Found!</th>
+        </tr>
+    }
+    else
+    {
+
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CellNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = item.ContactID}) |
+                    @Html.ActionLink("Details", "Details", new {id = item.ContactID}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.ContactID})
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+<div align="right">
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+        }
+    }
+</div>
