@@ -14,7 +14,7 @@ namespace ContactBook
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            Database.SetInitializer<ContactModel>(new DropCreateDatabaseIfModelChanges<ContactModel>());
+            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
 
         }
     }

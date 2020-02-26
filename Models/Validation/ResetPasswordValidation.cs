@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ContactBook.Models
 {
-    public class ResetPassworsModel
+    public class ResetPasswordValidation
     {
         [Required(ErrorMessage = "New Password required", AllowEmptyStrings = false)]
         [DataType(DataType.Password)]

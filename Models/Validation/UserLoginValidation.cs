@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ContactBook.Models
 {
-    public class UserLogin
+    public class UserLoginValidation
     {
         [Display(Name= "Email")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email required")]

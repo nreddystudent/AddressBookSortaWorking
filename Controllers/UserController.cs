@@ -13,7 +13,7 @@ namespace ContactBook.Controllers
 {
     public class UserController : Controller
     {
-        private UserModel db = new UserModel();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         //Registration Action 
         [HttpGet]
@@ -121,7 +121,7 @@ namespace ContactBook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(UserLogin login, string ReturnUrl = "")
+        public ActionResult Login(UserLoginValidation login, string ReturnUrl = "")
         {
             string message = "";
                 var account = db.Users.Where(attribute => attribute.Email == login.Email).FirstOrDefault();
@@ -269,7 +269,7 @@ namespace ContactBook.Controllers
                 var user = db.Users.Where(value => value.ResetPassword == id).FirstOrDefault();
                 if (user != null)
                 {
-                    ResetPassworsModel model = new ResetPassworsModel();
+                    ResetPasswordValidation model = new ResetPasswordValidation();
                     model.ResetCode = id;
                     return View(model);
                 }
@@ -284,7 +284,7 @@ namespace ContactBook.Controllers
         #region
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(ResetPassworsModel model)
+        public ActionResult ResetPassword(ResetPasswordValidation model)
         {
             var message = "";
 

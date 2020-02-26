@@ -12,7 +12,7 @@ namespace ContactBook.Controllers
 {
     public class ContactsController : Controller
     {
-        private ContactModel db = new ContactModel();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Contacts
         public ActionResult Index(string searchBy, string search)

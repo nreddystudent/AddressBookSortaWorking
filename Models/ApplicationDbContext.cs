@@ -5,9 +5,9 @@ namespace ContactBook.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ContactModel : DbContext
+    public partial class ApplicationDbContext : DbContext
     {
-        public ContactModel()
+        public ApplicationDbContext()
             : base("name=ContactModel")
         {
         }
@@ -20,12 +20,7 @@ namespace ContactBook.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Categories>().HasData(
-            //   new Categories
-            //   {
-            //       Category = "Family"
-            //   }
-        //};
+           
         }
     }
 }
