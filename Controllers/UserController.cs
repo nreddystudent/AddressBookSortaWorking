@@ -186,12 +186,12 @@ namespace ContactBook.Controllers
                 }
             
             ViewBag.Message = message;
+            ViewBag.Status = globalUID;
             return View();
         }
         #endregion
         #region Lougout
         [Authorize]
-        [HttpPost]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

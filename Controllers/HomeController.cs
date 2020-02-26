@@ -12,6 +12,7 @@ namespace ContactBook.Controllers
             [Authorize]
             public ActionResult Index()
             {
+            ViewBag.Status = UserController.globalUID;
                 return View();
             }
         }
