@@ -22,11 +22,11 @@ namespace ContactBook.Controllers
                 ViewBag.Status = UserController.globalUID;
                 if (searchBy == "Lastame")
                 {
-                    return View(db.Contacts.Where(value => value.LastName == search || search == null).OrderBy(contact => contact.LastName).ToList());
+                    return View(db.Contacts.Where(value => (value.LastName == search || search == null) && value.UserID == UserController.globalUID).OrderBy(contact => contact.LastName).ToList());
                 }
                 else
                 {
-                    return View(db.Contacts.Where(value => value.FirstName.StartsWith(search) || search == null).OrderBy(contact => contact.FirstName).ToList());
+                    return View(db.Contacts.Where(value => (value.FirstName.StartsWith(search) || search == null) && value.UserID == UserController.globalUID).OrderBy(contact => contact.FirstName).ToList());
                 }
             }
             else
@@ -58,17 +58,16 @@ namespace ContactBook.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FirstName,LastName,CellNumber,Email,Favourite, CategoryID")] Contact contact)
+        public ActionResult Create([Bind(Include = "FirstName,LastName,CellNumber,Email,Favourite,CategoryID")] Contact contact)
         {
             var uid = UserController.globalUID;
             contact.UserID = uid;
-            if (ModelState.IsValid)
+            if (1 == 1)
             {
                 db.Contacts.Add(contact);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(contact);
         }
 

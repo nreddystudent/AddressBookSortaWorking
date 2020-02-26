@@ -62,10 +62,11 @@
         @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.CategoryId, new List<SelectListItem>
-            { new SelectListItem{Text="Friend", Value="1"},
-             new SelectListItem{Text="Family", Value="2" },
-             new SelectListItem{Text="Work", Value="3" },
-            new SelectListItem{Text="Other", Value="4"}}, "Please select")
+            { new SelectListItem{Text="Homies", Value="1"},
+             new SelectListItem{Text="Fam", Value="2" },
+             new SelectListItem{Text="Boomers", Value="3" },
+             new SelectListItem{Text="Hookups", Value="4"},
+            new SelectListItem{Text="Randos", Value="5"}}, "Please select")
         </div>
     </div>
 
