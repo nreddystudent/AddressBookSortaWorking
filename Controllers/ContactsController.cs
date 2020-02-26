@@ -66,7 +66,7 @@ namespace ContactBook.Controllers
         {
             var uid = UserController.globalUID;
             contact.UserID = uid;
-            if (1 == 1)
+            if (ModelState.IsValid)
             {
                 db.Contacts.Add(contact);
                 db.SaveChanges();

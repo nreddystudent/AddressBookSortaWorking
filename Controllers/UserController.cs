@@ -141,10 +141,7 @@ namespace ContactBook.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            if (UserController.globalUID > 0)
-            {
-                return RedirectToAction("Index", "Contacts");
-            }
+            ViewBag.Status = globalUID;
             return View();
         }
 
