@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -18,6 +19,12 @@ namespace ContactBook.Models
             categoryList.Add(new Categories() { CategoriesID = 3, Category = "Boomers" });
             categoryList.Add(new Categories() { CategoriesID = 4, Category = "Hookups" });
             categoryList.Add(new Categories() { CategoriesID = 5, Category = "Randos" });
+
+            var conn = new SqlConnection("data source=(LocalDB)\\MSSQLLocalDB;attachdbfilename=|DataDirectory|\\Database1.mdf;integrated security=True;connect timeout=30;MultipleActiveResultSets=True;App=EntityFramework");
+            SqlCommand command = new SqlCommand("Create View ContactsView AS SELECT Contacts.[First Name], Contacts.[Last Name], Contacts.Email, Contacts.[Phone Number], Contacts.Favourite FROM Contacts", conn);
+            conn.Open();
+            command.ExecuteScalar();
+            conn.Close();
 
             foreach (var category in categoryList)
                 context.Categories.Add(category);

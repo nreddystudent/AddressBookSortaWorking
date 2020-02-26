@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,6 +18,25 @@ namespace ContactBook.Controllers
         // GET: Contacts
         public ActionResult Index(string searchBy, string search)
         {
+            List<Contact> contacts = new List<Contact>();
+            var conn = new SqlConnection("data source=(LocalDB)\\MSSQLLocalDB;attachdbfilename=|DataDirectory|\\Database1.mdf;integrated security=True;connect timeout=30;MultipleActiveResultSets=True;App=EntityFramework");
+            SqlCommand command = new SqlCommand("SELECT * FROM ContactsView", conn);
+            conn.Open();
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var FirstName = reader["First Name"].ToString();
+                    var LastName = reader["Last Name"].ToString();
+                    var Email = reader["Email"].ToString();
+                    var Favorite = (bool)reader["Favourite"];
+
+                    var PhoneNumber = reader["Phone Number"].ToString();
+                    contacts.Add(new Contact() { FirstName = FirstName, LastName = LastName, Email = Email, Favourite = Favorite, CellNumber = PhoneNumber });
+                }
+            }
+
+            conn.Close();
             if (UserController.globalUID > 0)
             {
                 ViewBag.Session = UserController.globalUID;
