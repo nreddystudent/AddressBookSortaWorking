@@ -46,7 +46,7 @@ namespace ContactBook.Controllers
                 return HttpNotFound();
             }
             if (UserController.globalUID > 0)
-                ViewBag.Status = UserController.globalUID;
+                ViewBag.Session = UserController.globalUID;
             return View(contact);
         }
 
@@ -54,7 +54,7 @@ namespace ContactBook.Controllers
         public ActionResult Create()
         {
             if (UserController.globalUID > 0)
-                ViewBag.Status = UserController.globalUID;
+                ViewBag.Session = UserController.globalUID;
             return View();
         }
 
@@ -71,11 +71,11 @@ namespace ContactBook.Controllers
                 db.Contacts.Add(contact);
                 db.SaveChanges();
                 if (UserController.globalUID > 0)
-                    ViewBag.Status = UserController.globalUID;
+                    ViewBag.Session = UserController.globalUID;
                 return RedirectToAction("Index");
             }
             if (UserController.globalUID > 0)
-                ViewBag.Status = UserController.globalUID;
+                ViewBag.Session = UserController.globalUID;
             return View(contact);
         }
 
@@ -92,7 +92,7 @@ namespace ContactBook.Controllers
                 return HttpNotFound();
             }
             if (UserController.globalUID > 0)
-                ViewBag.Status = UserController.globalUID;
+                ViewBag.Session = UserController.globalUID;
             return View(contact);
         }
 
@@ -107,11 +107,11 @@ namespace ContactBook.Controllers
                 db.Entry(contact).State = EntityState.Modified;
                 db.SaveChanges();
                 if (UserController.globalUID > 0)
-                    ViewBag.Status = UserController.globalUID;
+                    ViewBag.Session = UserController.globalUID;
                 return RedirectToAction("Index");
             }
             if (UserController.globalUID > 0)
-                ViewBag.Status = UserController.globalUID;
+                ViewBag.Session = UserController.globalUID;
             return View(contact);
         }
 
@@ -128,7 +128,7 @@ namespace ContactBook.Controllers
                 return HttpNotFound();
             }
             if (UserController.globalUID > 0)
-                ViewBag.Status = UserController.globalUID;
+                ViewBag.Session = UserController.globalUID;
             return View(contact);
         }
 

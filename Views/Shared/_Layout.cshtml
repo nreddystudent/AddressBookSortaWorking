@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Address Book", "Index", "Contacts", new { area = "" }, new { @class = "navbar-brand" })
-            @if (ViewBag.Status != 0)
+            @if (ViewBag.Session != 0)
             {
                 @Html.ActionLink("Logout", "Logout", "User", new { area = "" }, new { @class = "navbar-brand" })
             }

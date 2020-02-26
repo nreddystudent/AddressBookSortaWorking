@@ -100,6 +100,7 @@ namespace ContactBook.Controllers
 
             ViewBag.Message = message;
             ViewBag.Status = Status;
+            ViewBag.Session = globalUID;
             return View(user);
         }
         #endregion
@@ -141,7 +142,7 @@ namespace ContactBook.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            ViewBag.Status = globalUID;
+            ViewBag.Session = globalUID;
             return View();
         }
 
@@ -191,7 +192,7 @@ namespace ContactBook.Controllers
                 }
             
             ViewBag.Message = message;
-            ViewBag.Status = globalUID;
+            ViewBag.Session = globalUID;
             return View();
         }
         #endregion
@@ -216,9 +217,9 @@ namespace ContactBook.Controllers
             var verifyUrl = "/User/" + emailfor + "/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("ml.modisadife@gmail.com", "Contact Book Account");
+            var fromEmail = new MailAddress("addressbookdjank@gmail.com", "Contact Book Account");
             var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "1792fd2749bb31";
+            var fromEmailPassword = "0XT@up5ClYl*";
 
             string subject = "";
             string body = "";
