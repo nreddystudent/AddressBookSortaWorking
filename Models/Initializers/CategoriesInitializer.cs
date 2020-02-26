@@ -21,9 +21,13 @@ namespace ContactBook.Models
             categoryList.Add(new Categories() { CategoriesID = 5, Category = "Randos" });
 
             var conn = new SqlConnection("data source=(LocalDB)\\MSSQLLocalDB;attachdbfilename=|DataDirectory|\\Database1.mdf;integrated security=True;connect timeout=30;MultipleActiveResultSets=True;App=EntityFramework");
-            SqlCommand command = new SqlCommand("Create View ContactsView AS SELECT Contacts.[First Name], Contacts.[Last Name], Contacts.Email, Contacts.[Phone Number], Contacts.Favourite FROM Contacts", conn);
+            SqlCommand command = new SqlCommand("Create View ContactsView AS SELECT Contacts.[First Name], Contacts.[Last Name], Contacts.Email, Contacts.[Phone Number], Contacts.Favourite, Contacts.UserID FROM Contacts", conn);
             conn.Open();
             command.ExecuteScalar();
+            conn.Close(); 
+            SqlCommand command1 = new SqlCommand("CREATE PROCEDURE SelectContacts @UserID int AS SELECT * FROM ContactsView WHERE ContactsView.UserID = @UserID", conn);
+            conn.Open();
+            command1.ExecuteScalar();
             conn.Close();
 
             foreach (var category in categoryList)

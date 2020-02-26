@@ -18,9 +18,12 @@ namespace ContactBook.Controllers
         // GET: Contacts
         public ActionResult Index(string searchBy, string search)
         {
+            var id = UserController.globalUID;
             List<Contact> contacts = new List<Contact>();
             var conn = new SqlConnection("data source=(LocalDB)\\MSSQLLocalDB;attachdbfilename=|DataDirectory|\\Database1.mdf;integrated security=True;connect timeout=30;MultipleActiveResultSets=True;App=EntityFramework");
-            SqlCommand command = new SqlCommand("SELECT * FROM ContactsView", conn);
+            SqlCommand command = new SqlCommand("SelectContacts", conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@UserID", UserController.globalUID);
             conn.Open();
             using (var reader = command.ExecuteReader())
             {
@@ -30,7 +33,6 @@ namespace ContactBook.Controllers
                     var LastName = reader["Last Name"].ToString();
                     var Email = reader["Email"].ToString();
                     var Favorite = (bool)reader["Favourite"];
-
                     var PhoneNumber = reader["Phone Number"].ToString();
                     contacts.Add(new Contact() { FirstName = FirstName, LastName = LastName, Email = Email, Favourite = Favorite, CellNumber = PhoneNumber });
                 }
@@ -46,7 +48,7 @@ namespace ContactBook.Controllers
                 }
                 else
                 {
-                    return View(db.Contacts.Where(value => (value.FirstName.StartsWith(search) || search == null) && value.UserID == UserController.globalUID).OrderBy(contact => contact.FirstName).ToList());
+                    return View(contacts);
                 }
             }
             else
