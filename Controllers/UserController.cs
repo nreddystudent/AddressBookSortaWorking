@@ -21,6 +21,10 @@ namespace ContactBook.Controllers
         [HttpGet]
         public ActionResult Registration()
         {
+            if (UserController.globalUID > 0)
+            {
+                return RedirectToAction("Index", "Contacts");
+            }
             return View();
         }
 
@@ -137,6 +141,10 @@ namespace ContactBook.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (UserController.globalUID > 0)
+            {
+                return RedirectToAction("Index", "Contacts");
+            }
             return View();
         }
 
@@ -194,6 +202,10 @@ namespace ContactBook.Controllers
         [Authorize]
         public ActionResult Logout()
         {
+            if (UserController.globalUID < 1)
+            {
+                return RedirectToAction("Login", "User");
+            }
             FormsAuthentication.SignOut();
             globalUID = 0;
             return RedirectToAction("Login", "User");
