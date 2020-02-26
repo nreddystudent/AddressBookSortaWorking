@@ -150,6 +150,7 @@
     </Compile>
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\Initializers\CategoriesInitializer.cs" />
     <Compile Include="Models\Validation\UserValidation.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Validation\ResetPasswordValidation.cs" />

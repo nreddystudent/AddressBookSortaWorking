@@ -10,6 +10,8 @@ namespace ContactBook.Models
         public ApplicationDbContext()
             : base("name=ContactModel")
         {
+            Database.SetInitializer<ApplicationDbContext>(new CategoriesInitializer());
+            
         }
 
         public virtual DbSet<Contact> Contacts { get; set; }
