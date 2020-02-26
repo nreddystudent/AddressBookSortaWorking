@@ -39,7 +39,8 @@ namespace ContactBook.Models
 
         public int? UserID { get; set; }
         public bool Favourite { get; set; }
+        [ForeignKey("Category")]
         public int CategoryId { get; set; }
-
+        public Categories Category { get; set; }
     }
 }

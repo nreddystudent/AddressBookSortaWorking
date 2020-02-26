@@ -14,9 +14,18 @@ namespace ContactBook.Models
 
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
+
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<Categories>().HasData(
+            //   new Categories
+            //   {
+            //       Category = "Family"
+            //   }
+        //};
         }
     }
 }
