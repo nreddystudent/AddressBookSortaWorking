@@ -17,15 +17,19 @@ namespace ContactBook.Controllers
         // GET: Contacts
         public ActionResult Index(string searchBy, string search)
         {
-            if (searchBy == "Lastame")
+            if (UserController.globalUID > 0)
             {
-                return View(db.Contacts.Where(value => value.LastName == search || search == null).OrderBy(contact => contact.LastName).ToList());
+                if (searchBy == "Lastame")
+                {
+                    return View(db.Contacts.Where(value => value.LastName == search || search == null).OrderBy(contact => contact.LastName).ToList());
+                }
+                else
+                {
+                    return View(db.Contacts.Where(value => value.FirstName.StartsWith(search) || search == null).OrderBy(contact => contact.FirstName).ToList());
+                }
             }
             else
-            {
-                return View(db.Contacts.Where(value => value.FirstName.StartsWith(search) || search == null).OrderBy(contact => contact.FirstName).ToList());
-            }
-
+                return RedirectToAction("Login", "User");
         }
 
         // GET: Contacts/Details
@@ -53,8 +57,10 @@ namespace ContactBook.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ContactID,FirstName,LastName,CellNumber,Email,Address,UserID")] Contact contact)
+        public ActionResult Create([Bind(Include = "FirstName,LastName,CellNumber,Email,Favourite, CategoryID")] Contact contact)
         {
+            var uid = UserController.globalUID;
+            contact.UserID = uid;
             if (ModelState.IsValid)
             {
                 db.Contacts.Add(contact);

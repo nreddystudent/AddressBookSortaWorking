@@ -15,6 +15,8 @@ namespace ContactBook.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public static int globalUID { get; set; }
+
         //Registration Action 
         [HttpGet]
         public ActionResult Registration()
@@ -57,7 +59,27 @@ namespace ContactBook.Controllers
                 #region Save to Database
                 
                     db.Users.Add(user);
+                try
+                {
                     db.SaveChanges();
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                {
+                    Exception raise = dbEx;
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            string excep = string.Format("{0}:{1}",
+                                validationErrors.Entry.Entity.ToString(),
+                                validationError.ErrorMessage);
+                            // raise a new exception nesting
+                            // the current instance as InnerException
+                            raise = new InvalidOperationException(excep, raise);
+                        }
+                    }
+                    throw raise;
+                }
 
                     //Send Email to User
                     SendVerificationLinkEmail(user.Email, user.ActivationCode.ToString());
@@ -135,8 +157,9 @@ namespace ContactBook.Controllers
                     if (string.Compare(Crypto.Hash(login.Password), account.Password) == 0)
                     {
                         int timeout = login.RememberMe ? 525600 : 20; //1 year 
-                        var ticket = new FormsAuthenticationTicket(login.Email, login.RememberMe, timeout);
+                        var ticket = new FormsAuthenticationTicket(account.UserID.ToString(), login.RememberMe, timeout);
                         string encrypted = FormsAuthentication.Encrypt(ticket);
+                        globalUID = Int32.Parse(ticket.Name);
                         var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
                         cookie.Expires = DateTime.Now.AddMinutes(timeout);
                         cookie.HttpOnly = true;
@@ -172,6 +195,7 @@ namespace ContactBook.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            globalUID = 0;
             return RedirectToAction("Login", "User");
         }
         #endregion

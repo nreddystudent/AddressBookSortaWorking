@@ -43,8 +43,8 @@
         //public Nullable<System.DateTime> DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "Please enter a password")]
-        [StringLength(16, MinimumLength = 8, ErrorMessage = "Password needs to be between 8 and 16 characters")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$", ErrorMessage = "The  password is not entered in a correct format. Password needs, atleast one number, one lowercase, one upercase and one special character")]
+        //[StringLength(16, MinimumLength = 8, ErrorMessage = "Password needs to be between 8 and 16 characters")]
+       // [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$", ErrorMessage = "The  password is not entered in a correct format. Password needs, atleast one number, one lowercase, one upercase and one special character")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

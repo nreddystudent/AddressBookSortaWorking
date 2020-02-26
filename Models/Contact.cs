@@ -38,12 +38,7 @@ namespace ContactBook.Models
             ErrorMessage = "The email address is not entered in a correct format")]
         public string Email { get; set; }
 
-        [StringLength(254)]
-        [Display(Name = "Address")]
-        [RegularExpression(@"(^[A-Za-z0-9'\.\-\s\,]*$)", ErrorMessage = "The address is not entered in a correct format")]
-        public string Address { get; set; }
-
-        public int? UserID { get; set; }
+        public int UserID { get; set; }
         public bool Favourite { get; set; }
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
