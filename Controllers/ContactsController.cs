@@ -20,8 +20,10 @@ namespace ContactBook.Controllers
         {
             var id = UserController.globalUID;
             List<Contact> contacts = new List<Contact>();
+            List<User> users = new List<User>();
             var conn = new SqlConnection("data source=(LocalDB)\\MSSQLLocalDB;attachdbfilename=|DataDirectory|\\Database1.mdf;integrated security=True;connect timeout=30;MultipleActiveResultSets=True;App=EntityFramework");
             SqlCommand command = new SqlCommand("SelectContacts", conn);
+            SqlCommand com2nd = new SqlCommand("SELECT * FROM UserView", conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@UserID", UserController.globalUID);
             conn.Open();
@@ -38,6 +40,18 @@ namespace ContactBook.Controllers
                 }
             }
 
+            conn.Close();
+            conn.Open();
+            using (var reader = com2nd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var FirstName = reader["FirstName"].ToString();
+                    var LastName = reader["LastName"].ToString();
+                    var DateOfBirth = (DateTime)reader["DateOfBirth"];
+                    users.Add(new User() { FirstName = FirstName, LastName = LastName, DateOfBirth = DateOfBirth });
+                }
+            }
             conn.Close();
             if (UserController.globalUID > 0)
             {
