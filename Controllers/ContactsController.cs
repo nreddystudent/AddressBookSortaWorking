@@ -19,7 +19,7 @@ namespace ContactBook.Controllers
         {
             if (UserController.globalUID > 0)
             {
-                ViewBag.Status = UserController.globalUID;
+                ViewBag.Session = UserController.globalUID;
                 if (searchBy == "Lastame")
                 {
                     return View(db.Contacts.Where(value => (value.LastName == search || search == null) && value.UserID == UserController.globalUID).OrderBy(contact => contact.LastName).ToList());
