@@ -36,11 +36,16 @@ namespace ContactBook.Controllers
                     var Email = reader["Email"].ToString();
                     var Favorite = (bool)reader["Favourite"];
                     var PhoneNumber = reader["Phone Number"].ToString();
-                    contacts.Add(new Contact() { FirstName = FirstName, LastName = LastName, Email = Email, Favourite = Favorite, CellNumber = PhoneNumber });
+                    var Category = reader["Categories"].ToString();
+
+                    var ContactID = (int)reader["ContactID"];
+
+                    contacts.Add(new Contact() { FirstName = FirstName, LastName = LastName, Email = Email, Favourite = Favorite, CellNumber = PhoneNumber, ContactID = ContactID, Category = new Categories() { Category = Category } });
                 }
             }
 
             conn.Close();
+
             conn.Open();
             using (var reader = com2nd.ExecuteReader())
             {
@@ -53,6 +58,7 @@ namespace ContactBook.Controllers
                 }
             }
             conn.Close();
+
             if (UserController.globalUID > 0)
             {
                 ViewBag.Session = UserController.globalUID;
@@ -136,8 +142,10 @@ namespace ContactBook.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ContactID,FirstName,LastName,CellNumber,Email,Address,UserID")] Contact contact)
+        public ActionResult Edit([Bind(Include = "ContactID,FirstName,LastName,CellNumber,Email,Address,UserID,CategoryID")] Contact contact)
         {
+            var uid = UserController.globalUID;
+            contact.UserID = uid;
             if (ModelState.IsValid)
             {
                 db.Entry(contact).State = EntityState.Modified;

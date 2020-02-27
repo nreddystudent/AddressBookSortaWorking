@@ -19,12 +19,12 @@
 @using (Html.BeginForm("index", "Contacts", FormMethod.Get))
 {
     <div align="right">
-    <b>Search By:</b> @Html.RadioButton("searchBy", "FirstName", true) <text>FirstName</text>
-    @Html.RadioButton("searchBy", "LastName") <text>LastName</text>
-    <br />
-    @Html.TextBox("search")
-    <input type="submit" value="Search" />
-</div>
+        <b>Search By:</b> @Html.RadioButton("searchBy", "FirstName", true) <text>FirstName</text>
+        @Html.RadioButton("searchBy", "LastName") <text>LastName</text>
+        <br />
+        @Html.TextBox("search")
+        <input type="submit" value="Search" />
+    </div>
 }
 <table class="table">
     <tr>
@@ -60,31 +60,31 @@
 
         foreach (var item in Model)
         {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.FirstName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.LastName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CellNumber)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Email)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Favourite)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Category)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.ContactID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.ContactID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.ContactID })
-    </td>
-</tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CellNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Favourite)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Category)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ContactID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ContactID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ContactID })
+                </td>
+            </tr>
         }
     }
 
